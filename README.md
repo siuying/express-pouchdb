@@ -68,6 +68,7 @@ is the most important middleware known to be problematic.
   - ``overrideMode``: Sometimes the preprogrammed modes are insufficient for your needs, or you chose the ``'custom'`` mode. In that case, you can set this to an object. This object can have the following properties:
     - ``'include'``: a javascript array that specifies parts to include on top of the ones specified by ``opts.mode``. Optional.
     - ``'exclude'``: a javascript array that specifies parts to exclude from the ones specified by ``opts.mode``. Optional.
+    - ``'plugins'``: a javascript array that specifies nodejs modules to be loaded additional to standard modules. Optional.
 
 The application object returned contains some extra properties that
 offer additional functionality compared to an ordinary express
@@ -111,6 +112,22 @@ var app2 = require('express-pouchdb')(require('pouchdb'), {
       // following parts too. Which makes sense since they depend on it.
       'routes/authorization',
       'routes/session'
+    ]
+  }
+});
+```
+
+#### Example 3
+
+builds a full HTTP API with plugin [express-pouchdb-jwt](https://github.com/siuying/express-pouchdb-jwt)
+for JSON Web Token authentication:
+
+```javascript
+var app3 = require('express-pouchdb')(require('pouchdb'), {
+  mode: 'fullCouchDB',
+  overrideMode: {
+    plugins: [
+      'express-pouchdb-jwt'
     ]
   }
 });
